@@ -199,17 +199,18 @@ By completing this assignment, you will:
 Good luck! This assignment prepares you for the main Shannon Information Theory assignment where you'll implement n-gram models and text generation using similar preprocessing techniques.
 
 # Output Images
-![Image Not Loaded](imgs/Screenshot 2025-10-22 at 2.13.23 PM.png "Test output of Part 1, test_setup.py")
+
 <img width="2880" height="1800" alt="Screenshot 2025-10-22 at 2 13 23 PM" src="https://github.com/user-attachments/assets/ff21eb49-844b-4e1f-9eb2-c4f2e3263862" />
+Test output of Part 1, test_setup.py
 
-![Image Not Loaded](imgs/Screenshot 2025-10-26 at 6.39.08 PM.png "Analysis of 1st sample txt URL, Pride and Prejudice URL")
 <img width="1466" height="1800" alt="Screenshot 2025-10-26 at 6 39 08 PM" src="https://github.com/user-attachments/assets/dd609d89-5bc4-4d7d-811e-7f616a04f24d" />
+Analysis of 1st sample txt URL, Pride and Prejudice URL
 
-![Image Not Loaded](imgs/Screenshot 2025-10-26 at 6.39.25 PM.png "Analysis of 1st sample txt URL, Frankenstein URL")
 <img width="1358" height="1800" alt="Screenshot 2025-10-26 at 6 39 25 PM" src="https://github.com/user-attachments/assets/d7357d86-54f9-4c5f-a383-a720cd001738" />
+Analysis of 2nd sample txt URL, Frankenstein URL
 
-![Image Not Loaded](imgs/Screenshot 2025-10-26 at 6.39.42 PM.png "Analysis of 1st sample txt URL, Alice in Wonderland URL")
 <img width="1450" height="1796" alt="Screenshot 2025-10-26 at 6 39 42 PM" src="https://github.com/user-attachments/assets/4ecde42c-79e4-4486-8a87-f8ef8d8154db" />
+Analysis of 3rd sample txt URL, Alice in Wonderland URL
 
-![Image Not Loaded](imgs/Screenshot 2025-10-26 at 6.39.55 PM.png "Analysis of 1st sample txt URL, Moby Dick URL")
 <img width="1558" height="1800" alt="Screenshot 2025-10-26 at 6 39 55 PM" src="https://github.com/user-attachments/assets/0873856e-c965-4299-8b78-25ef172ac53e" />
+Analysis of 4th sample txt URL, Moby Dick URL
