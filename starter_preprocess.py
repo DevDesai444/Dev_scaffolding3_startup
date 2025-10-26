@@ -10,11 +10,12 @@ import json
 from typing import List, Dict, Tuple
 from collections import Counter
 import requests
-import string
+# import string as str
 
 
 class TextPreprocessor:
-    """Handles all the annoying text cleaning so you can focus on the fun stuff"""
+    """Handles all the annoying text cleaning so you can
+    focus on the fun stuff"""
 
     def __init__(self):
         # Gutenberg markers (these are common, add more if needed)
@@ -52,7 +53,11 @@ class TextPreprocessor:
 
         return cleaned.strip()
 
-    def normalize_text(self, text: str, preserve_sentences: bool = True) -> str:
+    def normalize_text(
+        self,
+        text: str,
+        preserve_sentences: bool = True,
+    ) -> str:
         """
         Normalize text while preserving sentence boundaries
 
@@ -64,8 +69,8 @@ class TextPreprocessor:
         text = text.lower()
 
         # Standardize quotes and dashes
-        text = re.sub(r'[""]', '"', text)
-        text = re.sub(r'['']', "'", text)
+        text = re.sub(r'["]', '"', text)
+        text = re.sub(r"[']", "'", text)
         text = re.sub(r'—|–', '-', text)
 
         if preserve_sentences:
@@ -85,10 +90,8 @@ class TextPreprocessor:
         """Split text into sentences"""
         # Simple sentence splitter (you can make this fancier with NLTK)
         sentences = re.split(r'[.!?]+', text)
-
         # Clean up and filter
         sentences = [s.strip() for s in sentences if s.strip()]
-
         return sentences
 
     def tokenize_words(self, text: str) -> List[str]:
@@ -102,12 +105,16 @@ class TextPreprocessor:
 
         return words
 
-    def tokenize_chars(self, text: str, include_space: bool = True) -> List[str]:
+    def tokenize_chars(
+        self,
+        text: str,
+        include_space: bool = True
+    ) -> List[str]:
         """Split text into characters"""
         if include_space:
             # Replace multiple spaces with single space
             text = re.sub(r'\s+', ' ', text)
-            return list(text)
+            return List(text)
         else:
             return [c for c in text if c != ' ']
 
@@ -116,8 +123,46 @@ class TextPreprocessor:
         return [len(self.tokenize_words(sent)) for sent in sentences]
 
     # TODO: Implement these methods for the warm-up assignment
-
     def fetch_from_url(self, url: str) -> str:
+        """
+        Fetch text content from a URL (especially Project Gutenberg)
+
+        Args:
+            url: URL to a .txt file
+
+        Returns:
+            Raw text content
+
+        Raises:
+            ValueError: If URL is not a .txt file
+            Exception: If URL cannot be reached
+        """
+        # Validate URL extension
+        if url.split(".")[-1] != "txt":
+            raise ValueError("URL must be a .txt file")
+
+        try:
+            # Add headers to avoid being blocked
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+            }
+
+            # Fetch with timeout
+            response = requests.get(url, headers=headers, timeout=10)
+            response.raise_for_status()
+
+            return response.text
+
+        except requests.exceptions.Timeout:
+            raise Exception(f"Request timed out: {url}")
+        except requests.exceptions.ConnectionError as e:
+            raise Exception(f"Connection error: Cannot reach {url}")
+        except requests.exceptions.HTTPError as e:
+            raise Exception(f"HTTP Error {response.status_code}: {e}")
+        except Exception as e:
+            raise Exception(f"Error fetching URL: {str(e)}")
+
+    def fetch_from_url2(self, url: str) -> str:
         """
         TODO: Fetch text content from a URL (especially Project Gutenberg)
 
@@ -173,13 +218,21 @@ class TextPreprocessor:
         word_counter = Counter(words)
         most_common_words = word_counter.most_common(10)
 
-        return {"total_characters": total_characters, "total_words": total_words, "total_sentences": total_sentences, "avg_word_length": round(avg_word_length, 2), "avg_sentence_length": round(avg_sentence_length, 2), "most_common_words": most_common_words}
+        return {
+            "total_characters": total_characters,
+            "total_words": total_words,
+            "total_sentences": total_sentences,
+            "avg_word_length": round(avg_word_length, 2),
+            "avg_sentence_length": round(avg_sentence_length, 2),
+            "most_common_words": most_common_words
+        }
         # raise NotImplementedError(
         #     "Implement this for Part 2 of the assignment")
 
     def create_summary(self, text: str, num_sentences: int = 3) -> str:
         """
-        TODO: Create a simple extractive summary by returning the first N sentences
+        TODO: Create a simple extractive summary by returning the first N
+        sentences
 
         Args:
             text: Cleaned text
@@ -188,8 +241,9 @@ class TextPreprocessor:
         Returns:
             Summary string
         """
-        # Hint: Use tokenize_sentences() and join the first N sentencessentences = self.tokenize_sentences(text)
+        # Hint: Use tokenize_sentences() and join the first N sentences
         sentences = self.tokenize_sentences(text)
+        # sentences = self.tokenize_sentences(text)
 
         if not sentences:
             raise ValueError("Text must contain at least one sentence")
@@ -202,7 +256,9 @@ class TextPreprocessor:
 class FrequencyAnalyzer:
     """Calculate n-gram frequencies from tokenized text"""
 
-    def calculate_ngrams(self, tokens: List[str], n: int) -> Dict[Tuple[str, ...], int]:
+    def calculate_ngrams(
+        self, tokens: List[str], n: int
+    ) -> Dict[Tuple[str, ...], int]:
         """
         Calculate n-gram frequencies
 
@@ -224,7 +280,11 @@ class FrequencyAnalyzer:
 
         return dict(Counter(ngrams))
 
-    def calculate_probabilities(self, ngram_counts: Dict, smoothing: float = 0.0) -> Dict:
+    def calculate_probabilities(
+        self,
+        ngram_counts: Dict,
+        smoothing: float = 0.0
+    ) -> Dict:
         """
         Convert counts to probabilities
 
@@ -300,7 +360,8 @@ if __name__ == "__main__":
     chars = preprocessor.tokenize_chars(clean_text)
     char_trigrams = analyzer.calculate_ngrams(chars, 3)
     print(
-        f"Character trigrams (first 5): {dict(list(char_trigrams.items())[:5])}")
+        f"Character trigrams (first 5): "
+        f"{dict(List(char_trigrams.items())[:5])}")
 
     print("\n✅ Basic functionality working!")
     print("Now implement the TODO methods for your assignment!")
