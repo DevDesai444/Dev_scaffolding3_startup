@@ -69,8 +69,8 @@ class TextPreprocessor:
         text = text.lower()
 
         # Standardize quotes and dashes
-        text = re.sub(r'[""]', '"', text)
-        text = re.sub(r'['']', "'", text)
+        text = re.sub(r'["]', '"', text)
+        text = re.sub(r"[']", "'", text)
         text = re.sub(r'—|–', '-', text)
 
         if preserve_sentences:
